@@ -1,5 +1,7 @@
 site_name: Otávio Larrosa - otaviolarrosa.github.io
 site_url: https://otaviolarrosa.github.io/blog
+extra:
+  generator: false
 theme:
   name: material
   language: pt-BR
