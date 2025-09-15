@@ -1,0 +1,23 @@
+site_name: Otávio Larrosa - Blog Pessoal
+site_url: https://otaviolarrosa.github.io/blog
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.sections
+    - content.code.copy
+    - navigation.top
+    - search.suggest
+    - search.highlight
+nav:
+  - Início: index.md
+  - Posts:
+      - Hello World: posts/hello-world.md
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
