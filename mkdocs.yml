@@ -1,4 +1,4 @@
-site_name: Otávio Larrosa - Blog Pessoal
+site_name: Otávio Larrosa - otaviolarrosa.github.io
 site_url: https://otaviolarrosa.github.io/blog
 theme:
   name: material
@@ -26,7 +26,9 @@ theme:
 nav:
   - Início: index.md
   - Posts:
-      - Hello World: posts/hello-world.md
+      - 2025:
+          - 09:
+              - Hello World: posts/2025/09/hello-world.md
 plugins:
   - search
 markdown_extensions:

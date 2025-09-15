@@ -2,8 +2,10 @@
 
 Este é meu primeiro post com **MkDocs + Material** no **GitHub Pages**.
 
-- Escrito em Markdown
-- Build automático (Actions)
-- Deploy no branch `gh-pages`
+```markdown
+# Hello World 👋
 
-Até o próximo! 🚀
+Este post foi movido para a organização por data.
+
+Veja: ../2025/09/hello-world.md
+```
