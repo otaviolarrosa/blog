@@ -1,4 +1,4 @@
-# Scripts com C# e .NET 10: Uma Vontade Antiga, Agora Realidade
+# Rodando C# scripts diretamente no terminal — Sem .csproj
 
 Uma coisa que sempre senti falta no .NET/C# desde que comecei a usar, foi a capacidade de criar pequenos scripts para automatizar tarefas simples do dia a dia, assim como era possível fazer em Python, ou em Ruby. Eu realmente tinha inveja que eles podiam fazer isso.
 
