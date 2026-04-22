@@ -7,7 +7,7 @@
 
 ## Quem sou eu
 
-Atualmente sou Líder de Engenharia de Software na empresa de consultoria Plan A Technologies e desenvolvedor de software apaixonado por problemas complexos. Minha trajetória atual é focada em sistemas distribuídos, inteligência artificial, algoritmos de grafos, Go (Golang) e outros assuntos geeks.
+Atualmente sou Líder de Engenharia de Software na empresa de consultoria Dev.Pro e desenvolvedor de software apaixonado por problemas complexos. Minha trajetória atual é focada em sistemas distribuídos, .NET, Azure, inteligência artificial e outros assuntos geeks.
 
 ## Programadores cujo trabalho eu gosto de acompanhar
 
