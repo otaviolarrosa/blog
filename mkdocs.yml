@@ -37,6 +37,8 @@ nav:
       - 04:
         - .NET 11 Preview 3: posts/2026/04/dotnet11-preview3.md
         - GitHub Copilot muda planos individuais: posts/2026/04/copilot-mudancas-planos.md
+      - 05:
+        - Token Savior + GitHub Copilot - Como Configurar o Servidor MCP: posts/2026/05/token-savior-copilot.md
 plugins:
   - search
 markdown_extensions:
