@@ -39,6 +39,7 @@ nav:
         - GitHub Copilot muda planos individuais: posts/2026/04/copilot-mudancas-planos.md
       - 05:
         - Token Savior + GitHub Copilot - Como Configurar o Servidor MCP: posts/2026/05/token-savior-copilot.md
+        - Dev, fuja de vídeos curtos: posts/2026/05/dev-fuja-videos-curtos.md
 plugins:
   - search
 markdown_extensions:
