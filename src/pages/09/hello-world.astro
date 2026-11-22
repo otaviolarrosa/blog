@@ -1,0 +1,20 @@
+---
+import { withBase } from '../../utils/url';
+
+const target = withBase('/posts/2025/09/hello-world/');
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={new URL(target, Astro.site)} />
+    <title>Redirecionando...</title>
+  </head>
+  <body>
+    <p>
+      Redirecionando para <a href={target}>{target}</a>...
+    </p>
+  </body>
+</html>

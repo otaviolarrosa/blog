@@ -1,71 +1,32 @@
 # Blog do Otávio Larrosa
-Este repositório contém o site pessoal do Otávio Larrosa, gerado com MkDocs e o tema Material for MkDocs. O site é publicado como site estático (GitHub Pages) em [https://otaviolarrosa.github.io/blog](https://otaviolarrosa.github.io/blog).
 
-**Resumo rápido**
+Este repositório contém o blog pessoal e técnico do **Otávio Larrosa**, construído com **Astro**, **TypeScript** e **Tailwind CSS**, publicado no GitHub Pages em [https://otaviolarrosa.github.io/blog/](https://otaviolarrosa.github.io/blog/).
 
-- **Site generator**: MkDocs
-- **Tema**: Material for MkDocs (`material`)
-- **Linguagem**: Português (pt-BR)
-- **Deploy**: GitHub Pages (branch `gh-pages`, com build possivelmente acionado por GitHub Actions)
-- **Formato do conteúdo**: Markdown (arquivos em `docs/`)
+## Estrutura do projeto
 
-**Arquivo de configuração principal**: `mkdocs.yml`
+- `src/content/posts/` — Artigos em Markdown organizados por ano/mês
+- `src/layouts/` — Layouts base e de artigo
+- `src/pages/` — Páginas do site (`/` início, `/posts/` listagem, `/sobre/`, `/rss.xml`)
+- `src/components/` — Componentes reutilizáveis (Header, Footer, PostCard, BaseHead)
+- `astro.config.mjs` — Configuração do Astro (`site`, `base`, Shiki, Sitemap, Tailwind)
+- `.github/workflows/deploy.yml` — Pipeline de deploy automático para GitHub Pages
 
-Conteúdo e estrutura
-
-- `mkdocs.yml`: configuração do site (nome, URL, tema, navegação, plugins e extensões Markdown).
-- `docs/`: conteúdo em Markdown. Ex.: `docs/index.md` e `docs/posts/2025/09/hello-world.md`.
-
-Tecnologias e dependências
-
-- `mkdocs` — gerador de site estático para documentação/ blogs simples.
-- `material` — tema Material for MkDocs (configurado em `mkdocs.yml`).
-- Plugins e extensões usados no `mkdocs.yml`:
-  - `search` (plugin)
-  - `admonition`, `toc` (com permalink), `pymdownx.highlight`, `pymdownx.superfences` (extensões Markdown)
-
-Como rodar localmente
-
-1. Instale Python 3.8+ e um ambiente virtual (recomendado):
+## Como rodar localmente
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
+npm install
+npm run dev
 ```
 
-2. Instale as dependências necessárias (MkDocs + Material):
+Acesse `http://localhost:4321/blog/` no navegador.
+
+## Build e validação
 
 ```bash
-pip install mkdocs mkdocs-material pymdown-extensions
+npm run build
+npm run preview
 ```
 
-3. Execute o servidor de desenvolvimento:
+## Contato
 
-```bash
-mkdocs serve
-```
-
-Abra `http://127.0.0.1:8000/` no navegador para ver o site localmente.
-
-Como gerar o build estático
-
-```bash
-mkdocs build
-```
-
-O conteúdo gerado ficará em `site/` por padrão.
-
-
-URLs importantes
-- URL do site (configurada em `mkdocs.yml`): [https://otaviolarrosa.github.io/blog](https://otaviolarrosa.github.io/blog)
-
-Estrutura do repositório
-- `mkdocs.yml` — config do MkDocs
-- `docs/` — arquivos Markdown do site
-- `site/` — saída gerada (não versionada normalmente)
-- `README.md` — este arquivo
-
-
-Contato
-- E-mail: `otaviolarrosa@outlook.com` (presente em `docs/index.md`).
+- E-mail: `otaviolarrosa@outlook.com`

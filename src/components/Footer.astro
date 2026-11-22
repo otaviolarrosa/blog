@@ -1,0 +1,39 @@
+---
+import { AUTHOR_EMAIL, AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_NAME } from '../site.config';
+import { withBase } from '../utils/url';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="app-layout mt-auto">
+  <div class="border-border text-muted-foreground flex flex-col items-center justify-between gap-3 border-t py-8 text-sm sm:flex-row">
+    <p>
+      © {currentYear} {AUTHOR_NAME} · Design inspirado em{' '}
+      <a
+        class="hover:text-accent underline decoration-dotted underline-offset-4"
+        href="https://github.com/chintak/astro-sage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        AstroSage
+      </a>
+    </p>
+    <div class="flex flex-wrap items-center gap-4">
+      <a href={AUTHOR_GITHUB} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+        GitHub
+      </a>
+      <a href={AUTHOR_LINKEDIN} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+        LinkedIn
+      </a>
+      <a href={`mailto:${AUTHOR_EMAIL}`} class="hover:text-accent transition-colors">
+        Contato
+      </a>
+      <a href={withBase('/rss.xml')} class="hover:text-accent transition-colors">
+        RSS
+      </a>
+      <a href={withBase('/sitemap-index.xml')} class="hover:text-accent transition-colors">
+        Sitemap
+      </a>
+    </div>
+  </div>
+</footer>

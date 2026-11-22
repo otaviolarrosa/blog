@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Artigos"
+  description="Todos os artigos publicados por Otávio Larrosa sobre .NET, C#, IA e engenharia de software."
+>
+  <main id="main-content" class="app-layout pb-12">
+    <div class="max-w-measure mx-auto pt-10 sm:pt-14">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Artigos</h1>
+      <p class="text-muted-foreground mt-3 mb-8 text-lg italic">
+        {posts.length} {posts.length === 1 ? 'artigo publicado' : 'artigos publicados'}.
+      </p>
+
+      <ul>
+        {posts.map((post) => (
+          <Card post={post} variant="h2" />
+        ))}
+      </ul>
+    </div>
+  </main>
+</BaseLayout>

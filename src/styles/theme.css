@@ -1,0 +1,76 @@
+/*
+ * AstroSage design tokens.
+ * Light is warm paper (#f8f2e6); dark is espresso (#1f1a15).
+ */
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-surface: var(--bg-raised);
+  --color-foreground: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-fg);
+  --color-sage: var(--sage);
+  --color-muted: var(--bg-raised);
+  --color-muted-foreground: var(--fg-muted);
+  --color-border: var(--border);
+  --font-app: var(--font-body);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+}
+
+:root {
+  --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, monospace;
+  --font-body: var(--font-sans);
+  --font-heading: var(--font-serif);
+  --font-ui: var(--font-mono);
+  --font-code: var(--font-mono);
+
+  /* Inter has a larger x-height than Newsreader; 17px reads comfortably for long-form text. */
+  --text-body: 1.0625rem; /* 17px */
+  --leading-body: 1.7;
+  --heading-weight: 600;
+  --heading-tracking: -0.015em;
+  --heading-scale: 1.2;
+  --ui-size: 0.78rem;
+  --label-tracking: 0.06em;
+
+  --char: calc(var(--text-body) * 0.51);
+  --measure-min: calc(var(--char) * 66);
+  --measure-max: calc(var(--char) * 71);
+  --measure: clamp(var(--measure-min), 44vw, var(--measure-max));
+  --rail: 15rem;
+  --rail-gap: clamp(2.5rem, 4vw, 3.5rem);
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --page-max: calc(var(--measure) + var(--rail-gap) + var(--rail));
+}
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f8f2e6;
+  --bg-raised: #f0e7d6;
+  --fg: #2d2620;
+  --fg-muted: #675c4f;
+  --accent: #9c4a24;
+  --accent-fg: #fffaf0;
+  --sage: #4e6743;
+  --border: #e3d8c3;
+  --selection: #f0d7a8;
+  --mark: #f4dea2;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1f1a15;
+  --bg-raised: #2a231c;
+  --fg: #ecdfcb;
+  --fg-muted: #b0a08a;
+  --accent: #e8956a;
+  --accent-fg: #1f1a15;
+  --sage: #adc29b;
+  --border: #3d3329;
+  --selection: #5c4630;
+  --mark: #5e4a22;
+}

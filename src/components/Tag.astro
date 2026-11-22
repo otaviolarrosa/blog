@@ -1,0 +1,57 @@
+---
+import { withBase } from '../utils/url';
+
+interface Props {
+  tag: string;
+  count?: number;
+  size?: 'sm' | 'lg';
+}
+
+const { tag, count, size = 'lg' } = Astro.props;
+---
+
+<li>
+  <a
+    href={withBase(`/tags/${encodeURIComponent(tag)}/`)}
+    class:list={[
+      'tag flex items-center gap-0.5 rounded-full px-2.5 py-0.5',
+      'bg-surface text-muted-foreground border-border border',
+      'hover:text-accent hover:border-accent/50 transition-colors',
+      size,
+    ]}
+  >
+    <span class="opacity-70" aria-hidden="true">#</span>
+    {tag}
+    {typeof count === 'number' && (
+      <span class="tag-count">
+        <span aria-hidden="true">{count}</span>
+        <span class="sr-only">
+          ({count} {count === 1 ? 'artigo' : 'artigos'})
+        </span>
+      </span>
+    )}
+  </a>
+</li>
+
+<style>
+  .tag {
+    font-family: var(--font-ui);
+    line-height: 1.5;
+  }
+  .tag.sm {
+    font-size: 0.75rem;
+  }
+  .tag.lg {
+    font-size: 0.875rem;
+  }
+  .tag-count {
+    margin-inline-start: 0.45em;
+    padding-inline-start: 0.45em;
+    border-inline-start: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+    color: var(--fg-muted);
+  }
+  .tag:hover .tag-count {
+    color: inherit;
+  }
+</style>

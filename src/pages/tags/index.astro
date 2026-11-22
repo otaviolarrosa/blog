@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Tag from '../../components/Tag.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const tagCounts = new Map<string, number>();
+
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = Array.from(tagCounts.entries()).sort((a, b) => a[0].localeCompare(b[0], 'pt-BR'));
+---
+
+<BaseLayout
+  title="Tags"
+  description="Navegue pelos assuntos publicados no blog de Otávio Larrosa."
+>
+  <main id="main-content" class="app-layout pb-12">
+    <div class="max-w-measure mx-auto pt-10 sm:pt-14">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Tags</h1>
+      <p class="text-muted-foreground mt-3 mb-8 text-lg italic">
+        {tags.length} {tags.length === 1 ? 'assunto' : 'assuntos'} explorados no blog.
+      </p>
+
+      <ul class="flex flex-wrap gap-3">
+        {tags.map(([tag, count]) => (
+          <Tag tag={tag} count={count} size="lg" />
+        ))}
+      </ul>
+    </div>
+  </main>
+</BaseLayout>

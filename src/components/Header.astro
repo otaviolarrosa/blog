@@ -1,0 +1,199 @@
+---
+import { menuLinks, SITE_TITLE } from '../site.config';
+import { withBase } from '../utils/url';
+
+const pathname = Astro.url.pathname;
+
+const isActive = (path: string) => {
+  const target = withBase(path);
+  return pathname === target || pathname.startsWith(target);
+};
+---
+
+<a
+  id="skip-to-content"
+  href="#main-content"
+  class="bg-background text-accent absolute inset-s-4 -top-full z-50 px-3 py-2 focus:top-4"
+>
+  Ir para o conteúdo
+</a>
+
+<header class="app-layout">
+  <div class="border-border flex items-center justify-between gap-6 border-b py-5 sm:py-6">
+    <a
+      href={withBase('/')}
+      class="site-title text-xl font-semibold whitespace-nowrap sm:text-2xl"
+    >
+      {SITE_TITLE}
+    </a>
+
+    <nav aria-label="Navegação principal" class="flex items-center gap-1 sm:gap-2">
+      <ul class="hidden items-center gap-5 md:flex">
+        {menuLinks.map((l) => (
+          <li>
+            <a
+              href={withBase(l.path)}
+              class:list={['nav-link', { 'active-nav': isActive(l.path) }]}
+              aria-current={isActive(l.path) ? 'page' : undefined}
+            >
+              {l.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={withBase('/search/')}
+        class:list={['icon-btn', { 'text-accent!': isActive('/search/') }]}
+        title="Buscar"
+        aria-label="Buscar artigos"
+        aria-current={isActive('/search/') ? 'page' : undefined}
+      >
+        <svg
+          class="size-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="10" cy="10" r="7" />
+          <path d="M21 21l-6 -6" />
+        </svg>
+      </a>
+
+      <button
+        id="theme-btn"
+        type="button"
+        class="icon-btn"
+        title="Alternar tema claro/escuro"
+        aria-label="Alternar tema claro/escuro"
+        aria-live="polite"
+      >
+        <svg
+          class="size-5 dark:hidden"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+        </svg>
+        <svg
+          class="hidden size-5 dark:block"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" />
+          <path d="M6.343 17.657l-1.414 1.414" />
+          <path d="M6.343 6.343l-1.414 -1.414" />
+          <path d="M17.657 6.343l1.414 -1.414" />
+          <path d="M17.657 17.657l1.414 1.414" />
+          <path d="M4 12h-2" />
+          <path d="M12 4v-2" />
+          <path d="M20 12h2" />
+          <path d="M12 20v2" />
+        </svg>
+      </button>
+
+      <details class="mobile-menu md:hidden">
+        <summary class="icon-btn" aria-label="Abrir menu">
+          <svg
+            class="size-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 6h16" />
+            <path d="M7 12h13" />
+            <path d="M10 18h10" />
+          </svg>
+        </summary>
+        <ul>
+          {menuLinks.map((l) => (
+            <li>
+              <a
+                href={withBase(l.path)}
+                class:list={{ 'active-nav': isActive(l.path) }}
+              >
+                {l.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-title {
+    font-family: var(--font-heading);
+    font-variation-settings: "opsz" 40;
+    letter-spacing: -0.01em;
+  }
+  .nav-link {
+    color: var(--fg-muted);
+    transition: color 120ms;
+  }
+  .nav-link:hover {
+    color: var(--fg);
+  }
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    color: var(--fg-muted);
+    transition: color 120ms, background-color 120ms;
+  }
+  .icon-btn:hover {
+    color: var(--fg);
+    background: var(--bg-raised);
+  }
+  .mobile-menu {
+    position: relative;
+  }
+  .mobile-menu summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-menu ul {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 20;
+    min-width: 11rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--bg);
+    box-shadow: 0 8px 24px -12px rgb(58 49 38 / 0.35);
+  }
+  .mobile-menu li a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+  }
+  .mobile-menu li a:hover {
+    background: var(--bg-raised);
+  }
+</style>

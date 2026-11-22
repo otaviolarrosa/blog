@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import {
+  AUTHOR_EMAIL,
+  AUTHOR_GITHUB,
+  AUTHOR_LINKEDIN,
+  AUTHOR_NAME,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+} from '../site.config';
+import { withBase } from '../utils/url';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const recentPosts = posts.slice(0, 6);
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main id="main-content" class="app-layout pb-12">
+    <div class="max-w-measure mx-auto">
+      <section class="hero">
+        <h1>Oi, eu sou o {AUTHOR_NAME}</h1>
+        <p class="intro">
+          Tech Lead &amp; Software Architect na Dev.Pro. Escrevo sobre sistemas distribuídos, .NET, C#,
+          Azure, inteligência artificial e engenharia de software.
+        </p>
+        <div class="ui-font text-muted-foreground mt-6 flex flex-wrap items-center gap-4 text-sm">
+          <a href={AUTHOR_GITHUB} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+            GitHub
+          </a>
+          <span aria-hidden="true">·</span>
+          <a href={AUTHOR_LINKEDIN} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+            LinkedIn
+          </a>
+          <span aria-hidden="true">·</span>
+          <a href={`mailto:${AUTHOR_EMAIL}`} class="hover:text-accent transition-colors">
+            E-mail
+          </a>
+          <span aria-hidden="true">·</span>
+          <a href={withBase('/rss.xml')} class="hover:text-accent transition-colors">
+            RSS
+          </a>
+        </div>
+      </section>
+
+      <section aria-labelledby="recent-heading" class="mt-14">
+        <h2 id="recent-heading" class="section-label small-caps">
+          Artigos recentes
+        </h2>
+        <ul>
+          {recentPosts.map((post) => (
+            <Card post={post} variant="h3" />
+          ))}
+        </ul>
+      </section>
+
+      <div class="mt-10">
+        <a
+          href={withBase('/posts/')}
+          class="ui-font text-accent inline-flex items-center gap-1.5 text-sm hover:underline"
+        >
+          Ver todos os {posts.length} artigos →
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 3.3rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+  }
+  .intro {
+    margin-top: 1.25rem;
+    font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+    line-height: 1.55;
+    color: color-mix(in oklab, var(--fg) 85%, var(--bg));
+    text-wrap: pretty;
+  }
+  .section-label {
+    color: var(--fg-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+</style>

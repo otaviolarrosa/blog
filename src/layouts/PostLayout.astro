@@ -1,0 +1,115 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Tag from '../components/Tag.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import ShareButtons from '../components/ShareButtons.astro';
+import { AUTHOR_NAME } from '../site.config';
+import { formatDatePtBr } from '../utils/date';
+import { getReadingTime } from '../utils/readingTime';
+import { absoluteUrl, withBase } from '../utils/url';
+import '../styles/post.css';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  headings: MarkdownHeading[];
+}
+
+const { post, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, heroImage } = post.data;
+
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const idx = allPosts.findIndex((p) => p.id === post.id);
+const newerPost = idx > 0 ? allPosts[idx - 1] : undefined;
+const olderPost = idx >= 0 && idx < allPosts.length - 1 ? allPosts[idx + 1] : undefined;
+
+const readingTime = getReadingTime(post.body ?? '');
+const postUrl = absoluteUrl(`/posts/${post.id}/`, Astro.site);
+const tocHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+const showToc = tocHeadings.length > 1;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage?.src}
+  article={{
+    publishedTime: pubDate.toISOString(),
+    modifiedTime: updatedDate?.toISOString(),
+    tags,
+  }}
+>
+  <main id="main-content" class="app-layout mt-10 pb-14 sm:mt-14">
+    <div class:list={['post-grid', { 'has-toc': showToc }]}>
+      <header class="post-header">
+        <h1 class="post-title">{title}</h1>
+        <p class="post-dek">{description}</p>
+        <div class="post-meta">
+          <span>Por {AUTHOR_NAME}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={pubDate.toISOString()}>{formatDatePtBr(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime}</span>
+          {updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Atualizado em {formatDatePtBr(updatedDate)}</span>
+            </>
+          )}
+        </div>
+
+        {tags.length > 0 && (
+          <ul class="post-tags">
+            {tags.map((tag) => (
+              <Tag tag={tag} size="sm" />
+            ))}
+          </ul>
+        )}
+
+        {showToc && <TableOfContents headings={tocHeadings} variant="inline" class="post-toc-inline mt-6" />}
+      </header>
+
+      {showToc && (
+        <aside class="post-rail">
+          <TableOfContents headings={tocHeadings} variant="rail" />
+        </aside>
+      )}
+
+      <article id="article" class="post-body app-prose">
+        <slot />
+      </article>
+
+      <footer class="post-footer">
+        <ShareButtons title={title} url={postUrl} description={description} />
+
+        {(olderPost || newerPost) && (
+          <nav class="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-2" aria-label="Mais artigos">
+            {olderPost ? (
+              <a
+                href={withBase(`/posts/${olderPost.id}/`)}
+                class="border-border hover:border-accent/50 rounded-md border p-4 transition-colors"
+              >
+                <span class="small-caps text-muted-foreground block text-xs">← Anterior</span>
+                <span class="mt-1 block font-semibold">{olderPost.data.title}</span>
+              </a>
+            ) : (
+              <div />
+            )}
+
+            {newerPost && (
+              <a
+                href={withBase(`/posts/${newerPost.id}/`)}
+                class="border-border hover:border-accent/50 rounded-md border p-4 text-right transition-colors"
+              >
+                <span class="small-caps text-muted-foreground block text-xs">Mais recente →</span>
+                <span class="mt-1 block font-semibold">{newerPost.data.title}</span>
+              </a>
+            )}
+          </nav>
+        )}
+      </footer>
+    </div>
+  </main>
+</BaseLayout>

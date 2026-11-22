@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AUTHOR_EMAIL } from '../site.config';
+---
+
+<BaseLayout
+  title="Sobre"
+  description="Quem é Otávio Larrosa: trajetória, referências em engenharia de software, livros recomendados e contato."
+>
+  <main id="main-content" class="app-layout pb-14">
+    <div class="max-w-measure mx-auto pt-10 sm:pt-14">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Oi, eu sou o Otávio</h1>
+
+      <article class="app-prose mt-8">
+        <p>
+          <a href="http://www.catb.org/~esr/faqs/smart-questions.html" target="_blank" rel="noopener noreferrer">
+            How to ask questions the smart way
+          </a>
+        </p>
+        <p>
+          <a href="https://www.vim.org/docs.php" target="_blank" rel="noopener noreferrer">
+            Learn vim, for your own good
+          </a>
+        </p>
+
+        <h2>Quem sou eu</h2>
+        <p>
+          Atualmente sou Líder de Engenharia de Software na empresa de consultoria Dev.Pro e desenvolvedor de software
+          apaixonado por problemas complexos. Minha trajetória atual é focada em sistemas distribuídos, .NET, Azure,
+          inteligência artificial e outros assuntos geeks.
+        </p>
+
+        <h2>Programadores cujo trabalho eu gosto de acompanhar</h2>
+        <ol>
+          <li><a href="https://en.wikipedia.org/wiki/Ken_Thompson" target="_blank" rel="noopener noreferrer">Ken Thompson</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" target="_blank" rel="noopener noreferrer">Dennis Ritchie</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Donald_Knuth" target="_blank" rel="noopener noreferrer">Donald Knuth</a></li>
+          <li><a href="https://linkedin.com/in/robertaarcoverde/" target="_blank" rel="noopener noreferrer">Roberta Arcoverde</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Guido_van_Rossum" target="_blank" rel="noopener noreferrer">Guido Van Rossum</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Linus_Torvalds" target="_blank" rel="noopener noreferrer">Linus Torvalds</a></li>
+        </ol>
+
+        <h2>Livros que recomendo para programadores</h2>
+        <ol>
+          <li><a href="https://www.amazon.com/Introduction-Algorithms-third-Thomas-Cormen-ebook/dp/B08FH8N996" target="_blank" rel="noopener noreferrer">Algorithms - Theory and practice</a></li>
+          <li><a href="https://www.amazon.com/Distributed-Systems-Principles-Andrew-Tanenbaum/dp/0130888931" target="_blank" rel="noopener noreferrer">Distributed systems</a></li>
+          <li><a href="https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X" target="_blank" rel="noopener noreferrer">The Pragmatic programmer</a></li>
+          <li><a href="https://www.amazon.com/Software-Engineering-Google-Lessons-Programming/dp/1492082791" target="_blank" rel="noopener noreferrer">Software Engineering at Google</a></li>
+          <li><a href="https://www.amazon.com/C-Complete-Reference-Herbert-Schildt/dp/0072226803" target="_blank" rel="noopener noreferrer">C++: The Complete Reference</a></li>
+        </ol>
+
+        <h2>Como me contatar</h2>
+        <p>
+          Você pode enviar um e-mail para <a href={`mailto:${AUTHOR_EMAIL}`}>{AUTHOR_EMAIL}</a>
+        </p>
+      </article>
+    </div>
+  </main>
+</BaseLayout>

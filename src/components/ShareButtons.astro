@@ -1,0 +1,91 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  description?: string;
+}
+
+const { title, url, description } = Astro.props;
+
+const tweetText = description ? `${title} — ${description}` : title;
+const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+  tweetText,
+)}&url=${encodeURIComponent(url)}`;
+const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+---
+
+<div class="share-row">
+  <span class="small-caps text-muted-foreground text-xs font-semibold">Compartilhar</span>
+  <div class="flex flex-wrap gap-2">
+    <a
+      class="share-btn"
+      href={twitterHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Compartilhar no X (Twitter)"
+    >
+      X
+    </a>
+    <a
+      class="share-btn"
+      href={linkedinHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Compartilhar no LinkedIn"
+    >
+      LinkedIn
+    </a>
+    <button
+      class="share-btn"
+      type="button"
+      data-share-copy
+      data-url={url}
+      aria-label="Copiar link"
+    >
+      <span class="share-copy-label">Copiar link</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .share-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+  .share-btn {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--fg-muted);
+    transition: color 120ms, border-color 120ms;
+  }
+  .share-btn:hover {
+    color: var(--accent);
+    border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-share-copy]').forEach((btn) => {
+    const label = btn.querySelector<HTMLElement>('.share-copy-label');
+    const original = label?.textContent ?? 'Copiar link';
+
+    btn.addEventListener('click', async () => {
+      const url = btn.dataset.url ?? window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        if (label) label.textContent = 'Copiado!';
+        setTimeout(() => {
+          if (label) label.textContent = original;
+        }, 1500);
+      } catch {
+        // Clipboard API unavailable
+      }
+    });
+  });
+</script>
